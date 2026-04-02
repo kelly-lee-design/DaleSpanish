@@ -6,7 +6,6 @@ const AuthContext = createContext(null)
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null)
   const [loading, setLoading] = useState(true)
-  // Guest mode is session-only — does not persist across refreshes
   const [isGuest, setIsGuest] = useState(false)
 
   useEffect(() => {
@@ -15,13 +14,10 @@ export function AuthProvider({ children }) {
       return
     }
 
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setUser(session?.user ?? null)
-      setLoading(false)
-    })
-
+    // onAuthStateChange fires for INITIAL_SESSION, SIGNED_IN, SIGNED_OUT, and OAuth redirects
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       setUser(session?.user ?? null)
+      setLoading(false)
     })
 
     return () => subscription.unsubscribe()
