@@ -220,7 +220,7 @@ function AppInner() {
   return (
     <div className="min-h-screen bg-[#F9FAFB] flex">
       <Navbar view={view} setView={setView} variant="sidebar" />
-      <div className="flex-1 md:ml-64 flex flex-col min-h-screen">
+      <div className="flex-1 min-w-0 md:ml-64 flex flex-col min-h-screen overflow-x-hidden">
         <TopHeader
           setView={setView}
           character={character}

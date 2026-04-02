@@ -131,9 +131,9 @@ function ListView({ filtered, search, activeCategory, deleteWord, completeMissio
         const accuracy = word.reviewCount > 0 ? Math.round((word.knownCount / word.reviewCount) * 100) : null
 
         return (
-          <div key={word.id} className="bg-white rounded-2xl shadow-sm overflow-hidden transition-all">
+          <div key={word.id} className="bg-white rounded-2xl shadow-sm overflow-hidden transition-all w-full">
             <div className="p-4">
-              <div className="flex items-start gap-2">
+              <div className="flex items-start gap-2 w-full">
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 flex-wrap">
                     <h3 className="font-black text-gray-900 text-lg leading-tight">{word.word}</h3>
