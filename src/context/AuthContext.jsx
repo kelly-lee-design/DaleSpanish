@@ -58,7 +58,7 @@ export function AuthProvider({ children }) {
     user,
     loading,
     isGuest,
-    isAuthenticated: !!user || isGuest || !isSupabaseConfigured,
+    isAuthenticated: !!user || isGuest,
     signUp,
     signIn,
     signInWithGoogle,
