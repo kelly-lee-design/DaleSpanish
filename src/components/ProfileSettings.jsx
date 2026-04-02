@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { User, Pencil, Target, GraduationCap, Save, CheckCircle, ArrowLeft } from 'lucide-react'
+import { User, Pencil, Target, GraduationCap, Save, CheckCircle, ArrowLeft, LogOut } from 'lucide-react'
 import { CHARACTERS } from '../hooks/useProfile'
+import { useAuth } from '../context/AuthContext'
 
 const LEVELS = [
   { id: 'A1', label: 'A1', desc: '초급' },
@@ -10,6 +11,7 @@ const LEVELS = [
 ]
 
 export default function ProfileSettings({ profile, saveProfile, displayName, character, setView }) {
+  const { signOut, isGuest } = useAuth()
   const [nickname, setNickname] = useState(profile.nickname)
   const [selectedChar, setSelectedChar] = useState(profile.character)
   const [motto, setMotto] = useState(profile.motto)
@@ -248,6 +250,16 @@ export default function ProfileSettings({ profile, saveProfile, displayName, cha
             </motion.span>
           )}
         </AnimatePresence>
+      </motion.button>
+
+      {/* Sign Out */}
+      <motion.button
+        onClick={signOut}
+        whileTap={{ scale: 0.95 }}
+        className="w-full py-3.5 rounded-[24px] border-2 border-gray-200 text-gray-500 font-bold text-sm flex items-center justify-center gap-2 hover:bg-gray-50 transition-colors"
+      >
+        <LogOut size={16} />
+        {isGuest ? '게스트 모드 종료' : '로그아웃'}
       </motion.button>
     </div>
   )

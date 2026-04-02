@@ -6,10 +6,8 @@ const AuthContext = createContext(null)
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null)
   const [loading, setLoading] = useState(true)
-  // guest = using app without login (localStorage only)
-  const [isGuest, setIsGuest] = useState(() => {
-    return localStorage.getItem('dale_guest') === 'true'
-  })
+  // Guest mode is session-only — does not persist across refreshes
+  const [isGuest, setIsGuest] = useState(false)
 
   useEffect(() => {
     if (!isSupabaseConfigured) {
@@ -50,12 +48,10 @@ export function AuthProvider({ children }) {
   const signOut = async () => {
     if (isSupabaseConfigured) await supabase.auth.signOut()
     setIsGuest(false)
-    localStorage.removeItem('dale_guest')
   }
 
   const continueAsGuest = () => {
     setIsGuest(true)
-    localStorage.setItem('dale_guest', 'true')
   }
 
   const value = {
